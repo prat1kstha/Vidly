@@ -10,6 +10,7 @@
         <thead>
             <tr>
                 <th>Customer</th>
+                <th>Discount Rate</th>
             </tr>
         </thead>
         @foreach (var customer in Model)
@@ -17,7 +18,7 @@
             <tr>
                 <td>
                     @Html.ActionLink(customer.Name, "Details", new { id = customer.Id})
-                    <a asp-for></a>
+                    <td>@customer.MembershipType.DiscountRate %</td>
                 </td>
             </tr>
         }
