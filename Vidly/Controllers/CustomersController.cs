@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
+using Vidly.ViewModels;
 using System.Data.Entity;
 
 namespace Vidly.Controllers
@@ -21,6 +22,37 @@ namespace Vidly.Controllers
             _context.Dispose();
         }
 
+        public ActionResult New()
+        {
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new CustomerFormViewModel()
+            {
+                MembershipTypes = membershipTypes
+            };
+            return View("CustomerForm", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Customer customer)
+        {
+            if (customer.Id == 0)
+            {
+                _context.Customers.Add(customer);
+            }
+            else
+            {
+                var customerFromDb = _context.Customers.SingleOrDefault(c => c.Id == customer.Id);
+                customerFromDb.Name = customer.Name;
+                customerFromDb.BirthDate = customer.BirthDate;
+                customerFromDb.MembershipTypeId = customer.MembershipTypeId;
+                customerFromDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Customers
         public ActionResult Index()
         {
@@ -28,14 +60,21 @@ namespace Vidly.Controllers
             return View(customers);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Edit(int id)
         {
             var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
+            
             if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+
+            var viewModel = new CustomerFormViewModel()
+            {
+                MembershipTypes = _context.MembershipTypes.ToList(),
+                Customer = customer
+            };
+            return View("CustomerForm", viewModel);
         }
     }
 }
