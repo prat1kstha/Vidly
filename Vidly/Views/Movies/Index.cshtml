@@ -10,6 +10,7 @@
         <thead>
             <tr>
                 <th>Movie</th>
+                <th>Genre</th>
             </tr>
         </thead>
         @foreach (var movie in Model)
@@ -17,7 +18,9 @@
             <tr>
                 <td>
                     @Html.ActionLink(movie.Name, "Details", new { id = movie.Id })
-                    <a asp-for></a>
+                </td>
+                <td>
+                    @movie.Genre.Name
                 </td>
             </tr>
         }
