@@ -14,7 +14,7 @@ namespace Vidly.Dtos
         [Required(ErrorMessage = "Please enter customer's name."), StringLength(255)]
         public string Name { get; set; }
 
-        [Min18YearsIfAMember]
+        //[Min18YearsIfAMember]
         public DateTime? BirthDate { get; set; }
 
         public bool IsSubscribedToNewsLetter { get; set; }
