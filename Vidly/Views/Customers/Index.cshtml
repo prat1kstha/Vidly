@@ -6,12 +6,13 @@
 
 <h2>Customers</h2>
 <div>
-    <table class="table table-bordered table-hover">
+    <table id="customers" class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Customer</th>
                 <th>Membership Type</th>
                 <th>Discount Rate</th>
+                <th>Action</th>
             </tr>
         </thead>
         @foreach (var customer in Model)
@@ -22,8 +23,36 @@
                 </td>
                 <td>@customer.MembershipType.Name</td>
                 <td>@customer.MembershipType.DiscountRate %</td>
+                <td>
+                    <button data-customer-id="@customer.Id" class="btn-danger js-delete">Delete</button>
+                </td>
             </tr>
         }
     </table>
 </div>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#customers").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Confirm to delete customer?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/customers/" + button.attr("data-customer-id"),
+                            method: "DELETE",
+                            success: function () {
+                                //location.reload();
+                                button.parents("tr").remove();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>    
+}
 
