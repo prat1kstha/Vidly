@@ -15,7 +15,7 @@
                 <th>Action</th>
             </tr>
         </thead>
-        @foreach (var customer in Model)
+        @*@foreach (var customer in Model)
         {
             <tr>
                 <td>
@@ -27,7 +27,7 @@
                     <button data-customer-id="@customer.Id" class="btn-danger js-delete">Delete</button>
                 </td>
             </tr>
-        }
+        }*@
     </table>
 </div>
 
@@ -36,7 +36,35 @@
 {
     <script>
         $(document).ready(function () {
-            $("#customers").DataTable();
+            $("#customers").DataTable({
+                ajax: {
+                    url: "/api/customers",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, customer) {
+                            return "<a href='/customers/edit/'" + customer.id + " '>" + customer.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "membershipType.name"
+                    },
+                    {
+                        data: "membershipType.discountRate",
+                        render: function (data) {
+                            return data + " %";
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-danger js-delete' data-customer-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
 
             $("#customers").on("click", ".js-delete", function () {
                 var button = $(this);
