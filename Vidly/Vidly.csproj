@@ -237,6 +237,10 @@
     <Compile Include="Migrations\202201151222165_AddColumnsToMovieTable.designer.cs">
       <DependentUpon>202201151222165_AddColumnsToMovieTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201201326538_SeedRoles.cs" />
+    <Compile Include="Migrations\202201201326538_SeedRoles.designer.cs">
+      <DependentUpon>202201201326538_SeedRoles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -247,6 +251,7 @@
     <Compile Include="Models\Min18YearsIfAMember.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\MovieFormViewModel.cs" />
     <Compile Include="ViewModels\CustomerFormViewModel.cs" />
     <Compile Include="ViewModels\RandomMovieViewModel.cs" />
@@ -541,6 +546,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201151222165_AddColumnsToMovieTable.resx">
       <DependentUpon>202201151222165_AddColumnsToMovieTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201201326538_SeedRoles.resx">
+      <DependentUpon>202201201326538_SeedRoles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
