@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Vidly.Models
+namespace Vidly.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -11,6 +11,9 @@ namespace Vidly.Models
 
         [Required, Display(Name = "Driving License")]
         public string DrivingLicense { get; set; }
+
+        [Required]
+        public string Phone { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -85,6 +88,9 @@ namespace Vidly.Models
 
         [Required, Display(Name ="Driving License")]
         public string DrivingLicense { get; set; }
+
+        [Required, StringLength(50)]
+        public string Phone { get; set; }
     }
 
     public class ResetPasswordViewModel

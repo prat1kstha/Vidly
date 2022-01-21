@@ -39,6 +39,7 @@ namespace Vidly.Controllers
             return View("MovieForm", viewModel);
         }
 
+        [Authorize(Roles = Constants.CanManageMovies)]
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
@@ -71,6 +72,7 @@ namespace Vidly.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = Constants.CanManageMovies)]
         public ActionResult Edit(int id)
         {
             var movie = _context.Movies.Include(c => c.Genre).SingleOrDefault(c => c.Id == id);
