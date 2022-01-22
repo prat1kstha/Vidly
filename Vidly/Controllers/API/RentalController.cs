@@ -24,6 +24,15 @@ namespace Vidly.Controllers.API
             var customer = _context.Customers.Single(c => c.Id == newRentalDto.CustomerId);
             var movies = _context.Movies.Where(m => newRentalDto.MovieIds.Contains(m.Id)).ToList();
 
+            int rentals = _context.Rentals
+                .Where(r => r.Customer.Id == newRentalDto.CustomerId && r.DateReturned == null)
+                .Count();
+
+            if (rentals + newRentalDto.MovieIds.Count() > Constants.MaxRentalLimit)
+            {
+                return BadRequest("Customer has exceeded rental limit");
+            }
+
             foreach (var movie in movies)
             {
                 if (movie.AvailableStock == 0)

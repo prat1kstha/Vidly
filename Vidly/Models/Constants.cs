@@ -8,5 +8,6 @@ namespace Vidly.Models
     public static class Constants
     {
         public const string CanManageMovies = "CanManageMovies";
+        public const int MaxRentalLimit = 3;
     }
 }
