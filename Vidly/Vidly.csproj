@@ -276,6 +276,10 @@
     <Compile Include="Migrations\202201211200525_AddAvailableStockInMovieTable.designer.cs">
       <DependentUpon>202201211200525_AddAvailableStockInMovieTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201221116334_AddDueFlagToCustomer.cs" />
+    <Compile Include="Migrations\202201221116334_AddDueFlagToCustomer.designer.cs">
+      <DependentUpon>202201221116334_AddDueFlagToCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Rental.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -619,6 +623,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201211200525_AddAvailableStockInMovieTable.resx">
       <DependentUpon>202201211200525_AddAvailableStockInMovieTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201221116334_AddDueFlagToCustomer.resx">
+      <DependentUpon>202201221116334_AddDueFlagToCustomer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

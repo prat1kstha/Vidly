@@ -59,6 +59,8 @@ namespace Vidly.Controllers.API
             }
 
             var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
+            customer.IsDue = false;
+
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
@@ -78,12 +80,19 @@ namespace Vidly.Controllers.API
 
             var customerFromDb = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            if (customerFromDb == null)
+            if (customerDto == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                customerFromDb.IsDue = true;
             }
+            else
+            {
+                if (customerFromDb == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
 
-            Mapper.Map(customerDto, customerFromDb);
+                Mapper.Map(customerDto, customerFromDb);
+            }
 
             _context.SaveChanges();
         }

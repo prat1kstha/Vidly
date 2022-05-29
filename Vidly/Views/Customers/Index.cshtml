@@ -8,7 +8,7 @@
 <div>
     <table id="customers" class="table table-bordered table-hover">
         <thead>
-            <tr>
+            <tr class="">
                 <th>Customer</th>
                 <th>Membership Type</th>
                 <th>Discount Rate</th>
@@ -60,27 +60,51 @@
                     {
                         data: "id",
                         render: function (data) {
-                            return "<button class='btn-danger js-delete' data-customer-id=" + data + ">Delete</button>";
+                            btn = "<button class='btn-danger js-delete' data-customer-id=" + data + ">Delete</button>";
+                            btn += `<button class='btn-info js-markDue' data-customer-id=" + data + ">
+                                    Mark as Due
+                                    </button>`
+
+                            return btn;
                         }
                     }
                 ]
             });
 
-            $("#customers").on("click", ".js-delete", function () {
+            $("#customers").on("click", ".js-delete, .js-markDue", function () {
                 var button = $(this);
 
-                bootbox.confirm("Confirm to delete customer?", function (result) {
-                    if (result) {
-                        $.ajax({
-                            url: "/api/customers/" + button.attr("data-customer-id"),
-                            method: "DELETE",
-                            success: function () {
-                                table.row(button.parents("tr")).remove().draw();
-                                //location.reload();
-                            }
-                        });
-                    }
-                });
+                if (button.hasClass("js-delete")) {
+                    bootbox.confirm("Confirm to delete customer?", function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/api/customers/" + button.attr("data-customer-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    table.row(button.parents("tr")).remove().draw();
+                                    //location.reload();
+                                }
+                            });
+                        }
+                    });
+                }
+
+                if (button.hasClass("js-markDue")) {
+                    bootbox.confirm("Confirm to marks customer's payment due?", function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/api/customers/" + button.attr("data-customer-id"),
+                                method: "PUT",
+                                success: function () {
+                                    table.row(button.parents("tr")).addClass("due");
+                                    //location.reload();
+                                }
+                            });
+                        }
+                    });
+                }
+
+
             });
         });
     </script>    
